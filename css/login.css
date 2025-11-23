@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg, #A7C6FF, #B8D9FF);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    width: 430px;
+    padding: 35px 40px;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.logo {
+    width: 170px;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.login_heading {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0 18px 0;
+    border: 2px solid #d8e6ff;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #76A7FF;
+    box-shadow: 0 0 4px rgba(118,167,255,0.6);
+}
+
+/* Password Box with Eye Icon */
+.password_box {
+    position: relative;
+}
+
+.toggle_password {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Horizontal Radio Buttons */
+.role_label {
+    margin-bottom: 6px;
+    display: block;
+}
+
+.radio_group {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.radio_option {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Login Button */
+.btn {
+    width: 100%;
+    padding: 13px;
+    background: #76A7FF;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: #5a8ef0;
+}
+
+/* Signup text at bottom */
+.signup_text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.signup_text a {
+    font-weight: 600;
+    color: #76A7FF;
+    text-decoration: none;
+}
+
+.signup_text a:hover {
+    text-decoration: underline;
+}
