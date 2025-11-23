@@ -1,0 +1,254 @@
+/* ============================================================
+   EXISTING LOGIN & SIGNUP STYLES (unchanged)
+============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg, #A7C6FF, #B8D9FF);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    width: 430px;
+    padding: 35px 40px;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.logo {
+    width: 170px;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.title {
+    text-align: center;
+    color: #76A7FF;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    margin: 8px 0 18px 0;
+    padding: 12px 14px;
+    border: 2px solid #d8e6ff;
+    border-radius: 12px;
+    outline: none;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #76A7FF;
+    box-shadow: 0 0 4px rgba(118,167,255,0.6);
+}
+
+.btn {
+    width: 100%;
+    padding: 13px;
+    background: #76A7FF;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: #5a8ef0;
+}
+
+.signup_heading {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.signup_subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 25px;
+    margin-top: 2px;
+}
+
+/* ============================================================
+   DASHBOARD UI (New Additions) 
+   - These will NOT affect login/signup layout
+============================================================ */
+
+/* Override ONLY for dashboard pages */
+body.dashboard-body {
+    background: linear-gradient(135deg, #E3EEFF, #F4F8FF);
+    height: auto;
+    display: block;
+}
+
+/* ---------- HEADER ---------- */
+.parent-header {
+    width: 100%;
+    background: #ffffff;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;  /* <-- NEW */
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-right {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2F4B8A;
+}
+
+.welcome-text {
+    background: rgba(180, 205, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 15px;
+    color: #2F4B8A;
+}
+
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    height: 45px;
+    width: auto;
+}
+
+.header-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #4A76D1;
+    margin: 0;
+}
+
+/* ---------- NAVBAR ---------- */
+.parent-navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: -8px;
+
+    position: sticky;
+    top: 75px; /* header height */
+    z-index: 45;
+}
+
+.navbar-links {
+    list-style: none;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #BBD3FF, #DCE8FF);
+    border-radius: 30px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+}
+
+.navbar-links li {
+    display: inline-block;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #2F4B8A;
+    font-weight: 900;
+    font-size: 15px;
+    transition: 0.2s ease;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+.navbar-links a:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #1C3B75;
+}
+
+.navbar-links a.active {
+    background: #76A7FF;
+    color: white;
+    font-weight: 600;
+}
+
+/* ---------- MAIN CONTENT WRAPPER ---------- */
+.parent-content {
+    width: 90%;
+    margin: 40px auto;
+    padding-bottom: 40px;
+}
+
+/* ---------- DASHBOARD CARDS ---------- */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+.card-emoji {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2F4B8A;
+}
+
+.card-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4A76D1;
+    margin-top: 5px;
+}
+/* ========================= FOOTER ========================= */
+
+.parent-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    color: #2F4B8A;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
