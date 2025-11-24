@@ -109,14 +109,7 @@ Notes:
 - Add automated tests and basic input validation on both client and server sides.
 - Consider adding role-based access controls and stronger input sanitization.
 
----
 
-If you want, I can:
-
-- Add a short developer checklist for running the project locally.
-- Create an example `.env` or configuration section and a sample SQL seed file.
-
-Happy to update the README with any extra details you'd like included.
 
 <!-- PROJECT STRUCTURE
 KiddoCredits/
