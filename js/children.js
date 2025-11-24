@@ -1,40 +1,39 @@
-// js/children.js
-document.addEventListener('DOMContentLoaded', function() {
+// js/children.js — use SideCard for Add Child
+document.addEventListener("DOMContentLoaded", () => {
 
-    const openBtn = document.getElementById('openAddChildModal');
-    const closeBtn = document.getElementById('closeAddChildModal');
-    const cancelBtn = document.getElementById('cancelAddChild');
-    const modal = document.getElementById('addChildModal');
+    console.log("children.js loaded");
 
-    function openModal(){
-        modal.style.display = 'flex';
-        // focus first input
-        const firstInput = modal.querySelector('input[name="child_name"]');
-        if(firstInput) firstInput.focus();
-    }
-    function closeModal(){
-        modal.style.display = 'none';
+    const openBtn = document.getElementById("openAddChild");
+    console.log("openAddChild button =", openBtn);
+
+    if (!openBtn) {
+        console.error("ERROR: #openAddChild not found in DOM at runtime.");
+        return;
     }
 
-    if(openBtn) openBtn.addEventListener('click', openModal);
-    if(closeBtn) closeBtn.addEventListener('click', closeModal);
-    if(cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    function getChildFormHTML() {
+        return `
+            <label>Child Name</label>
+            <input type="text" name="child_name" required>
 
-    // close on overlay click
-    modal.addEventListener('click', function(e){
-        if(e.target === modal){
-            closeModal();
-        }
+            <label>Username</label>
+            <input type="text" name="child_username" required>
+
+            <label>Password</label>
+            <input type="password" name="child_password" required>
+        `;
+    }
+
+    openBtn.addEventListener("click", () => {
+
+        console.log("Add child clicked — opening SideCard");
+
+        window.SideCard.open({
+            title: "Add Child",
+            mode: "add_child",
+            entityId: 0,
+            innerHTML: getChildFormHTML(),
+            focusSelector: "input[name='child_name']"
+        });
     });
 });
-
-// confirm delete
-function confirmDeleteChild(e, childId) {
-    e.preventDefault();
-    const ok = confirm("Are you sure you want to remove this child? This action cannot be undone.");
-    if (ok) {
-        // submit the form
-        e.target.submit();
-    }
-    return false;
-}

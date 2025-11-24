@@ -58,15 +58,21 @@ if ($parent_id) {
         $stmt->close();
     }
 
-    // 4) Due soon tasks (within next 5 days)
-    $sql = "SELECT COUNT(*) FROM Task WHERE parent_id = ? AND task_duedate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 5 DAY)";
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $parent_id);
-        $stmt->execute();
-        $stmt->bind_result($due_soon);
-        $stmt->fetch();
-        $stmt->close();
-    }
+ // 4) Due soon tasks (all upcoming pending tasks)
+$sql = "SELECT COUNT(*) FROM Task 
+    WHERE parent_id = ? 
+    AND task_status = 'pending'
+    AND task_duedate >= CURDATE()
+    AND task_duedate <= DATE_ADD(CURDATE(), INTERVAL 2 DAY)";
+
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $parent_id);
+    $stmt->execute();
+    $stmt->bind_result($due_soon);
+    $stmt->fetch();
+    $stmt->close();
+}
+
 
     // 5) Children list (basic info)
     $sql = "SELECT child_id, child_name, child_points, created_at FROM Child WHERE parent_id = ? ORDER BY created_at DESC";

@@ -17,10 +17,13 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Parent CSS -->
     <link rel="stylesheet" href="../css/parent.css">
 
+
 </head>
 <body>
 
 <!-- ========================= HEADER ========================= -->
+ 
+
 <header class="parent-header">
     <div class="header-left">
         <img src="../assets/logo.png" alt="KiddoCredits Logo" class="header-logo">
@@ -39,13 +42,40 @@ if (session_status() === PHP_SESSION_NONE) {
         <li><a href="../parent/dashboard.php">Home</a></li>
         <li><a href="../parent/children.php">My Children</a></li>
         <li><a href="../parent/tasks.php">Task List</a></li>
-        <li><a href="../parent/reward_add.php">Add Reward</a></li>
         <li><a href="../parent/reward_list.php">Reward List</a></li>
 
         <!-- Logout with confirmation popup -->
         <li><a href="../auth/logout.php" onclick="return confirmLogout()">Logout</a></li>
     </ul>
 </nav>
+<!-- UNIVERSAL SIDECARD -->
+<!-- Backdrop for sidecard (clicking it will close the sidecard) -->
+<div id="sideCardBackdrop" class="sidecard-backdrop hidden" aria-hidden="true"></div>
+
+<!-- UNIVERSAL SIDECARD -->
+<div id="sideCard" class="side-card hidden" aria-hidden="true">
+  <div class="side-card-content">
+
+    <button class="side-close" id="sideCardClose">&times;</button>
+
+    <h3 id="sideCardTitle">Form</h3>
+
+    <form id="sideCardForm" method="POST">
+        <input type="hidden" name="mode" value="">
+        <input type="hidden" name="task_id" value="0">
+        <input type="hidden" name="entity_id" value="0">
+        <div id="sideCardFields"></div>
+
+        <div class="actions" style="display:flex;gap:12px;margin-top:15px;">
+            <button type="submit" class="btn">Save</button>
+            <button type="button" class="btn outline" id="sideCardCancel">Cancel</button>
+        </div>
+    </form>
+
+  </div>
+</div>
+
+
 
 <!-- ========================= MAIN CONTENT WRAPPER ========================= -->
 <div class="parent-content">

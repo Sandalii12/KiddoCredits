@@ -1,62 +1,88 @@
-// js/tasks.js
-document.addEventListener('DOMContentLoaded', function () {
-    const openBtn = document.getElementById('openAssignModal');
-    const assignModal = document.getElementById('assignModal');
-    const closeModalBtn = document.getElementById('closeAssignModal');
-    const cancelAssignBtn = document.getElementById('cancelAssign');
-    const assignForm = document.getElementById('assignForm');
-    const modalTitle = document.getElementById('modalTitle');
+// js/tasks.js — page-specific loader for the universal SideCard
+document.addEventListener("DOMContentLoaded", () => {
 
-    function openModal() {
-        assignModal.style.display = 'flex';
-        assignModal.setAttribute('aria-hidden', 'false');
-        // reset form to add by default
-        assignForm.mode.value = 'add_task';
-        assignForm.task_id.value = '0';
-        assignForm.reset();
-        modalTitle.innerText = 'Assign Task';
-    }
-    function closeModal() {
-        assignModal.style.display = 'none';
-        assignModal.setAttribute('aria-hidden', 'true');
-    }
+  // Build dynamic form fields for tasks (child options passed in)
+  function getTaskFormHTML(childrenOptionsHTML = "") {
+    return `
+      <label>Child</label>
+      <select name="child_id" required>
+        <option value="">Select child</option>
+        ${childrenOptionsHTML}
+      </select>
 
-    if (openBtn) openBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    if (cancelAssignBtn) cancelAssignBtn.addEventListener('click', closeModal);
-    // close on overlay click
-    assignModal.addEventListener('click', function(e){
-        if (e.target === assignModal) closeModal();
+      <label>Task Title</label>
+      <input type="text" name="task_title" required>
+
+      <label>Task Description</label>
+      <textarea name="task_desc" rows="3"></textarea>
+
+      <label>Points</label>
+      <input type="number" name="task_points" min="1" required>
+
+      <label>Due Date</label>
+      <input type="date" name="task_duedate" required>
+    `;
+  }
+
+  // Read server-rendered children options
+  const childrenOptionsEl = document.getElementById('childrenOptions');
+  const childrenOptionsHTML = childrenOptionsEl ? childrenOptionsEl.innerHTML : '';
+
+  // Open Assign Task (Add)
+  const openAssignBtn = document.getElementById('openAssignModal');
+  if (openAssignBtn) {
+    openAssignBtn.addEventListener('click', () => {
+      window.SideCard.open({
+        title: "Assign Task",
+        mode: "add_task",
+        entityId: 0,
+        innerHTML: getTaskFormHTML(childrenOptionsHTML),
+        focusSelector: "input[name='task_title']"
+      });
     });
+  }
 
-    // Attach update buttons (they exist on page load)
-    function attachUpdateButtons() {
-        const updateBtns = document.querySelectorAll('.btn-update');
-        updateBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                // read data attributes from button
-                const taskId = this.getAttribute('data-taskid') || '0';
-                const childId = this.getAttribute('data-childid') || '';
-                const title = this.getAttribute('data-title') || '';
-                const desc = this.getAttribute('data-desc') || '';
-                const points = this.getAttribute('data-points') || '';
-                const duedate = this.getAttribute('data-duedate') || '';
+  // Update Task buttons
+  document.querySelectorAll(".btn-update").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const data = {
+        taskid: btn.dataset.taskid || "0",
+        childid: btn.dataset.childid || "",
+        title: btn.dataset.title || "",
+        desc: btn.dataset.desc || "",
+        points: btn.dataset.points || "",
+        duedate: btn.dataset.duedate || ""
+      };
 
-                // fill form
-                assignForm.mode.value = 'update_task';
-                assignForm.task_id.value = taskId;
-                assignForm.child_id.value = childId;
-                assignForm.task_title.value = title;
-                assignForm.task_desc.value = desc;
-                assignForm.task_points.value = points;
-                assignForm.task_duedate.value = duedate;
+      window.SideCard.open({
+        title: "Update Task",
+        mode: "update_task",
+        entityId: data.taskid,
+        innerHTML: getTaskFormHTML(childrenOptionsHTML),
+        focusSelector: "input[name='task_title']"
+      });
 
-                modalTitle.innerText = 'Update Task';
-                assignModal.style.display = 'flex';
-                assignModal.setAttribute('aria-hidden', 'false');
-            });
-        });
-    }
+      // Prefill values once fields are injected
+      setTimeout(() => {
+        const f = window.SideCard.formElement;
+        if (!f) return;
+        if (f.querySelector("input[name='task_id']")) f.querySelector("input[name='task_id']").value = data.taskid;
+        // select
+        const sel = f.querySelector("select[name='child_id']");
+        if (sel) sel.value = data.childid;
+        const titleInput = f.querySelector("input[name='task_title']");
+        if (titleInput) titleInput.value = data.title;
+        const ta = f.querySelector("textarea[name='task_desc']");
+        if (ta) ta.value = data.desc;
+        const pts = f.querySelector("input[name='task_points']");
+        if (pts) pts.value = data.points;
+        const dd = f.querySelector("input[name='task_duedate']");
+        if (dd) dd.value = data.duedate;
+        // set hidden mode/task id properly
+        if (f.mode) f.mode.value = "update_task";
+        if (f.task_id) f.task_id.value = data.taskid;
+      }, 25);
+    });
+  });
 
-    attachUpdateButtons();
 });

@@ -194,7 +194,6 @@ body.dashboard-body {
 .parent-content {
     width: 90%;
     margin: 40px auto;
-    padding-bottom: 40px;
 }
 
 /* ============================================================
@@ -288,6 +287,102 @@ body.dashboard-body {
 
 .stat-value { font-size: 22px; font-weight: 700; color:#2F4B8A; }
 .stat-label { font-size: 13px; color:#6b93d1; }
+/* ========= Rewards: cards & modal ========= */
+.reward-card {
+    padding: 22px;
+    border-radius: 18px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-height: 240px;
+}
+
+/* top */
+.reward-emoji { font-size: 42px; margin-bottom:6px; }
+.reward-title { font-size:18px; font-weight:700; color:#223a74; }
+.reward-desc { font-size:14px; color:#666; }
+
+/* meta row */
+.reward-meta { display:flex; gap:12px; align-items:center; }
+
+/* actions */
+.reward-card .child-actions { display:flex; gap:12px; justify-content:center; margin-top:auto; }
+
+/* adjust children-grid for reward cards */
+.children-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:24px; }
+
+/* keep modal style existing but ensure larger width for reward form */
+.modal-content { max-width: 600px; padding:30px; border-radius:16px; }
+.modal-content input[type="text"], .modal-content input[type="number"], .modal-content select, .modal-content textarea {
+    box-sizing:border-box;
+}
+
+/* small responsive tweak */
+@media (max-width:720px) {
+    .children-grid { grid-template-columns: 1fr; }
+}
+/* === Universal side-card === */
+.side-card {
+    position: fixed;
+    top: 10vh;
+    right: 20px;
+    bottom: 10vh;
+    width: 380px;
+    max-height: calc(80vh);
+    background: #fff;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.14);
+    z-index: 9999;
+    transform: translateX(110%);
+    transition: transform 0.32s cubic-bezier(.2,.9,.25,1), opacity 0.28s ease;
+    overflow: hidden;
+}
+
+.side-card:not(.hidden) {
+    transform: translateX(0);
+}
+
+.side-card .side-card-content {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.side-close {
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+    float: right;
+    color: #9bb0e7;
+}
+
+.side-card h3 {
+    color: #2F4B8A;
+    font-size: 22px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+.side-card label {
+    display:block;
+    margin-top:10px;
+    margin-bottom:6px;
+    font-weight:600;
+    color:#2F4B8A;
+}
+
+.side-card input, .side-card textarea, .side-card select {
+    width:100%;
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid #d9e5ff;
+    background:#f9fbff;
+    box-sizing:border-box;
+}
+
+.side-card .actions { margin-top:14px; display:flex; gap:12px; }
 
 
 /* ============================================================
@@ -388,6 +483,81 @@ body.dashboard-body {
     .task-info { flex-direction: column; align-items:flex-start; gap:8px; }
     .children-grid { grid-template-columns: 1fr; }
 }
+/* ================= SIDE FORM FOR REWARDS (FIXED & SCROLLABLE) ================ */
+.reward-form-card {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    width: 380px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.reward-form-card::-webkit-scrollbar {
+    width: 6px;
+}
+.reward-form-card::-webkit-scrollbar-thumb {
+    background: #b6ccff;
+    border-radius: 10px;
+}
+
+.reward-form-card.hidden {
+    display: none;
+}
+
+.reward-form-card h3 {
+    color: #2F4B8A;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+/* Inputs inside form */
+.reward-form-card input,
+.reward-form-card textarea,
+.reward-form-card select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d9e5ff;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    background: #f9fbff;
+}
+
+/* Assign options styling */
+.assign-options {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 5px;
+}
+
+.assign-options label {
+    font-weight: 600;
+    color: #2F4B8A;
+}
+
+#childSelectWrapper.hidden {
+    display: none;
+}
+
+/* Actions buttons */
+.reward-form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
 
 
 /* ============================================================
@@ -410,3 +580,26 @@ body.dashboard-body {
     .parent-content { width: 94%; }
 }
 
+/* === Hide native scrollbars but preserve scrolling === */
+html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+    width: 0;
+    height: 0;
+}
+
+/* Backdrop for sidecard (covers page when sidecard is open) */
+.sidecard-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,30,60,0.12);
+    z-index: 998;
+    transition: opacity 0.24s ease;
+}
+.sidecard-backdrop.hidden {
+    display: none;
+    opacity: 0;
+}
