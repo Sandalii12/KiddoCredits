@@ -137,9 +137,9 @@ body.dashboard-body {
 }
 
 .header-right {
-    font-size: 16px;
-    font-weight: 500;
-    color: #2F4B8A;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .welcome-text {
@@ -147,6 +147,7 @@ body.dashboard-body {
     padding: 8px 16px;
     border-radius: 15px;
     color: #2F4B8A;
+    font-weight: 600;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -194,6 +195,10 @@ body.dashboard-body {
 .parent-content {
     width: 90%;
     margin: 40px auto;
+    max-width: 1280px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    flex: 1;
 }
 
 /* ============================================================
@@ -212,6 +217,7 @@ body.dashboard-body {
     padding: 25px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.10);
     text-align: center;
+    margin-bottom: 1px;
 }
 
 .card-emoji { font-size: 48px; margin-bottom: 10px; }
@@ -563,12 +569,22 @@ body.dashboard-body {
 /* ============================================================
    FOOTER
 ============================================================ */
+/* layout helpers (match child dashboard behavior) */
+body.dashboard-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.parent-content {
+    flex: 1;
+}
 .parent-footer {
     text-align: center;
     padding: 20px 0;
     color: #2F4B8A;
     opacity: 0.8;
-    margin-top: 40px;
+    margin-top: 5px;
 }
 
 /* ============================================================

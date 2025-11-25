@@ -15,17 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Please select Parent or Child to continue.');</script>";
     } else {
 
+        /* ====================== PARENT LOGIN ====================== */
         if ($role == "parent") {
 
-            // Parent Login Query
-            $query = "SELECT parent_id,parent_name, parent_password FROM Parent WHERE parent_username = ?";
+            $query = "SELECT parent_id, parent_name, parent_password 
+                      FROM Parent WHERE parent_username = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $stmt->store_result();
 
             if ($stmt->num_rows == 1) {
-                $stmt->bind_result($parent_id,$parent_name, $hashed_pass);
+                $stmt->bind_result($parent_id, $parent_name, $hashed_pass);
                 $stmt->fetch();
 
                 if (password_verify($password, $hashed_pass)) {
@@ -49,22 +50,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
         }
 
+        /* ====================== CHILD LOGIN ====================== */
         else if ($role == "child") {
 
-            // Child Login Query
-            $query = "SELECT child_id, child_password FROM Child WHERE child_username = ?";
+            $query = "SELECT child_id, child_name, child_username, child_password 
+                      FROM Child WHERE child_username = ?";
+            
             $stmt = $conn->prepare($query);
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $stmt->store_result();
 
             if ($stmt->num_rows == 1) {
-                $stmt->bind_result($child_id, $hashed_pass);
+                
+                $stmt->bind_result($child_id, $child_name, $child_username, $hashed_pass);
                 $stmt->fetch();
 
                 if (password_verify($password, $hashed_pass)) {
 
                     $_SESSION["child_id"] = $child_id;
+                    $_SESSION["child_name"] = $child_name;
+                    $_SESSION["child_username"] = $child_username;
                     $_SESSION["role"] = "child";
 
                     echo "<script>
@@ -72,9 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             window.location.href = '../child/dashboard.php';
                           </script>";
                     exit;
-                } else {
+                } 
+                else {
                     echo "<script>alert('Incorrect password. Try again.');</script>";
                 }
+
             } else {
                 echo "<script>alert('Child username not found.');</script>";
             }
@@ -87,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

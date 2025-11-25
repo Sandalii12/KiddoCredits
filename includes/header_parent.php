@@ -27,7 +27,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <header class="parent-header">
     <div class="header-left">
         <img src="../assets/logo.png" alt="KiddoCredits Logo" class="header-logo">
-        <h1 class="header-title">KiddoCredits</h1>
+        <h2 class="header-title">KiddoCredits</h2>
     </div>
     <div class="header-right">
         <span class="welcome-text">
@@ -39,13 +39,13 @@ if (session_status() === PHP_SESSION_NONE) {
 <!-- ========================= NAVBAR ========================= -->
 <nav class="parent-navbar">
     <ul class="navbar-links">
-        <li><a href="../parent/dashboard.php">Home</a></li>
-        <li><a href="../parent/children.php">My Children</a></li>
-        <li><a href="../parent/tasks.php">Task List</a></li>
-        <li><a href="../parent/reward_list.php">Reward List</a></li>
+        <li><a href="../parent/dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">Home</a></li>
+        <li><a href="../parent/children.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'children.php' ? 'active' : ''; ?>">My Children</a></li>
+        <li><a href="../parent/tasks.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'tasks.php' ? 'active' : ''; ?>">Task List</a></li>
+        <li><a href="../parent/reward_list.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'reward_list.php' ? 'active' : ''; ?>">Reward List</a></li>
 
-        <!-- Logout with confirmation popup -->
-        <li><a href="../auth/logout.php" onclick="return confirmLogout()">Logout</a></li>
+        <!-- Logout with confirmation popup (push to right) -->
+        <li style="margin-left: auto;"><a href="../auth/logout.php" onclick="return confirmLogout()">Logout</a></li>
     </ul>
 </nav>
 <!-- UNIVERSAL SIDECARD -->
