@@ -77,3 +77,20 @@ CREATE TABLE Reward (
     FOREIGN KEY (child_id) REFERENCES Child(child_id)
         ON DELETE SET NULL
 );
+
+-- -----------------------------------------------------
+-- Table: Redeemed
+-- -----------------------------------------------------
+CREATE TABLE Redeemed (
+    redeemed_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    parent_id INT NOT NULL,
+    reward_id INT NOT NULL,
+    cost INT NOT NULL,                 -- cost at the time of redemption
+    redeemed_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (child_id) REFERENCES Child(child_id) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES Parent(parent_id) ON DELETE CASCADE,
+    FOREIGN KEY (reward_id) REFERENCES Reward(reward_id) ON DELETE CASCADE
+);
+

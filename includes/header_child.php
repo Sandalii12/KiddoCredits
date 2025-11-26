@@ -64,16 +64,22 @@ $childName = $_SESSION['child_name'] ?? 'Child';
             Wallet
         </a></li>
 
-        <!-- RIGHT SIDE PROFILE -->
+        <!-- RIGHT SIDE LOGOUT -->
         <li style="margin-left: auto;">
-            <a href="../child/profile.php"
-               class="<?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">
-            My Profile
+            <a href="../auth/logout.php" onclick="return confirmLogout()">
+            Logout
             </a>
         </li>
 
     </ul>
 </nav>
+
+<!-- ==================== LOGOUT CONFIRM SCRIPT ==================== -->
+<script>
+function confirmLogout() {
+    return confirm("Are you sure you want to logout?");
+}
+</script>
 
 <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
 <div class="parent-content">
