@@ -61,7 +61,7 @@ $childName = $_SESSION['child_name'] ?? 'Child';
 
         <li><a href="../child/wallet.php"
                class="<?php echo basename($_SERVER['PHP_SELF']) == 'wallet.php' ? 'active' : ''; ?>">
-            Wallet
+            Credits Log
         </a></li>
 
         <!-- RIGHT SIDE LOGOUT -->
