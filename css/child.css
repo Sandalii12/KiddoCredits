@@ -1,14 +1,9 @@
 /* ============================================================
-   child.css  — Clean, parent-consistent styles for Child UI
-   - Matches parent.css layout and spacing
-   - Header/logo alignment fixed
-   - Welcome text truncated if necessary
-   - No horizontal scroll
-   - Cards / grid same size as parent
+   child.css — Clean, Optimized & Parent-Matched
 ============================================================ */
 
 /* -------------------------
-   Global Reset & Base
+   Global Reset
 --------------------------*/
 * {
     margin: 0;
@@ -18,11 +13,15 @@
 }
 
 html, body {
-    /* hide native horizontal scrollbar & prevent overflow */
     overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
-/* LOGIN background kept separate; dashboard pages use dashboard-body */
+/* -------------------------
+   Login Background (only for login pages)
+--------------------------*/
 body {
     background: linear-gradient(120deg, #A7C6FF, #B8D9FF);
     height: 100vh;
@@ -31,102 +30,89 @@ body {
     align-items: center;
 }
 
-/* dashboard page body */
+/* Dashboard background */
 body.dashboard-body {
     background: linear-gradient(135deg, #E3EEFF, #F4F8FF);
-    height: auto;
-    display: block;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* -------------------------
-   Generic Buttons
+   Buttons
 --------------------------*/
 .btn {
     display: inline-block;
     padding: 10px 16px;
     background: #76A7FF;
-    border: none;
     border-radius: 12px;
+    border: none;
     color: white;
-    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s ease;
-    text-align: center;
 }
 .btn:hover { background: #5a8ef0; }
 .btn.full { width: 100%; }
 .btn.danger { background: #ff6b6b; }
 
 /* -------------------------
-   Header (match parent exactly)
+   Header — EXACT match to parent
 --------------------------*/
 .parent-header {
     width: 100%;
-    background: #ffffff;
+    background: #fff;
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     position: sticky;
     top: 0;
     z-index: 50;
 }
 
-/* left block (logo + title) */
 .header-left {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* logo */
 .header-logo {
-    height: 45px;  /* use this exact size */
+    height: 45px;
     width: auto;
-    display: block;
 }
 
-/* title */
 .header-title {
     font-size: 26px;
     font-weight: 600;
     color: #4A76D1;
-    margin: 0;
 }
 
-/* right block (welcome) */
 .header-right {
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 
-/* welcome bubble -- truncated if too long */
-.header-right .welcome-text,
 .welcome-text {
-    max-width: 320px;                  /* allow long names but truncate */
+    max-width: 320px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     background: rgba(180,205,255,0.4);
     padding: 8px 16px;
     border-radius: 15px;
-    color: #2F4B8A;
     font-weight: 600;
-    display: inline-block;
+    color: #2F4B8A;
 }
 
 /* -------------------------
-   Navbar (same pill style as parent)
+   Navbar — EXACT parent pill style
 --------------------------*/
 .parent-navbar {
-    width: 100%;
     display: flex;
     justify-content: center;
+    width: 100%;
     margin-top: -8px;
     position: sticky;
     top: 75px;
@@ -136,7 +122,7 @@ body.dashboard-body {
 .navbar-links {
     list-style: none;
     padding: 20px 30px;
-    background: linear-gradient(135deg, #BBD3FF, #DCE8FF);
+    background: linear-gradient(135deg,#BBD3FF,#DCE8FF);
     border-radius: 35px;
     display: flex;
     gap: 30px;
@@ -144,20 +130,17 @@ body.dashboard-body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.10);
 }
 
-
-.navbar-links a,
-.child-navbar a {
+.navbar-links a {
     text-decoration: none;
-    color: #2F4B8A;
-    font-weight: 700;
     font-size: 15px;
+    font-weight: 700;
+    color: #2F4B8A;
     padding: 6px 12px;
     border-radius: 10px;
 }
 
 .navbar-links a:hover {
     background: rgba(255,255,255,0.6);
-    color: #1C3B75;
 }
 
 .navbar-links a.active {
@@ -166,195 +149,321 @@ body.dashboard-body {
 }
 
 /* -------------------------
-   Main content wrapper (match parent)
+   Content Wrapper
 --------------------------*/
 .parent-content {
     width: 90%;
-    margin: 40px auto;
     max-width: 1280px;
-    box-sizing: border-box;
-    margin-bottom: 5px;
+    margin: 25px auto 5px auto;
     flex: 1;
 }
 
 /* -------------------------
-   Stats grid & cards (match parent)
+   Overview Cards (same as parent)
 --------------------------*/
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
     gap: 25px;
-    margin-top: 30px;
 }
 
-/* white card style identical to parent */
 .card {
-    background: #fff;
+    background: white;
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.10);
     text-align: center;
-    margin-bottom: 1px;
 }
 
-/* emoji, title, value */
 .card-emoji { font-size: 48px; margin-bottom: 10px; }
 .card-title { font-size: 18px; font-weight: 600; color:#2F4B8A; }
-.card-value { font-size: 28px; font-weight: 700; color:#4A76D1; }
-
-/* override for overview cards to match parent styling */
-.card.overview-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-}
-.card.overview-card .card-emoji { font-size: 48px; margin-bottom: 10px; }
-.card.overview-card .card-title { font-size: 18px; font-weight: 600; color:#2F4B8A; }
-.card.overview-card .card-value { font-size: 28px; font-weight: 700; color:#4A76D1; }
+.card-value { font-size: 28px; font-weight: 800; color:#4A76D1; }
 
 /* -------------------------
-   Section title styling (match parent)
+   Section titles
 --------------------------*/
 .section-title {
     color: #2F4B8A;
-    font-weight: 600;
-    margin-bottom: 20px;
     font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0;
 }
 
-#recent {
-    margin-top: 30px;
-}
-
-/* task status pills */
+/* -------------------------
+   Task Status Pills
+--------------------------*/
 .task-status {
-    padding:6px 10px;
-    border-radius:999px;
-    font-size :17px;
-    font-weight:700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.status-pending { background:#fff5e6; color:#b36b00; }
+.status-completed { background:#e9fbf0; color:#1b7b2a; }
+.status-waiting { background:#e7eaff; color:#4858d3; }
+
+/* -------------------------
+   Task Pills (sub navigation)
+--------------------------*/
+.tasks-pill-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.tasks-pill {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    background: linear-gradient(135deg,#BBD3FF,#DCE8FF);
+    color: #2F4B8A;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    cursor: pointer;
+}
+
+.tasks-pill.active {
+    background: #76A7FF;
+    color: #fff;
+}
+
+/* -------------------------
+   Task Cards (final labeled design)
+--------------------------*/
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 22px;
+}
+
+.task-card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 22px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task-card .task-title {
+    font-size: 18px;
+    font-weight: 700;
+    color:#213a74;
+}
+
+.task-field {
+    font-size: 14px;
+    color:#6b93d1;
+}
+
+.task-field span {
+    font-weight: 600;
+    color:#2F4B8A;
+}
+
+/* -------------------------
+   Footer
+--------------------------*/
+.parent-footer {
+    text-align: center;
+    opacity: 0.8;
+    padding: 20px 0;
     color: #2F4B8A;
 }
-.status-pending { background:#fff5e6; color:#b36b00; border:1px solid rgba(180,140,0,0.08); }
-.status-completed { background:#e9fbf0; color:#1b7b2a; border:1px solid rgba(20,120,60,0.06); }
 
 /* -------------------------
-   Children page / other reuse styles
+   Responsive
 --------------------------*/
-.children-header {
+@media (max-width:520px){
+    .navbar-links { gap: 12px; padding: 12px 16px; }
+    .parent-content { width: 94%; }
+}
+/* ------------------------
+   New beautiful task card
+-------------------------*/
+
+.task-card-new {
+    border-radius: 20px;
+    background: #ffffff;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 14px;
+    
+}
+
+/* header: emoji + title */
+.task-header {
+    display: flex;
     align-items: center;
-    margin-bottom: 18px;
-}
-.page-heading { color: #2F4B8A; font-size: 32px; }
-
-/* minimal child card & grid adjustments (reuse parent look) */
-.children-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
+    gap: 10px;
 }
 
-/* -------------------------
-   Sidecards, modals, forms (kept consistent)
---------------------------*/
-.side-card {
-    position: fixed;
-    top: 10vh;
-    right: 20px;
-    bottom: 10vh;
-    width: 380px;
-    max-height: calc(80vh);
-    background: #fff;
-    padding: 20px;
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.14);
-    z-index: 9999;
-    transform: translateX(110%);
-    transition: transform 0.32s cubic-bezier(.2,.9,.25,1), opacity 0.28s ease;
-    overflow: hidden;
+.task-emoji {
+    font-size: 30px;
 }
-.side-card:not(.hidden) { transform: translateX(0); }
 
-/* modal */
-.modal {
+.task-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2F4B8A;
+}
+
+/* each detail line */
+.task-line {
+    font-size: 15px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.task-line strong {
+    color: #2F4B8A;
+    font-weight: 600;
+}
+
+.task-line span {
+    color: #4A76D1;
+    font-weight: 600;
+}
+
+/* divider removed because new clean formatting */
+.task-divider {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(20,30,60,0.35);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
 }
-.modal-content {
-    width: 100%;
-    max-width: 550px;
-    background: white;
-    border-radius: 18px;
-    padding: 30px;
+
+/* statuses */
+.status-waiting {
+    background: #eef0ff;
+    color: #3e4ac5;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.status-pending {
+    background: #fff5e6;
+    color: #b36b00;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.status-completed {
+    background: #e7ffe9;
+    color: #1b7b38;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+/* ============================
+   SQUARE TASK CARDS – CLEAN UI
+=============================== */
+
+.task-card-square {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    min-height: 320px;          /* square look */
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     position: relative;
 }
 
-/* -------------------------
-   Footer & layout helpers
---------------------------*/
-body.dashboard-body {
+/* top-right emoji */
+.task-emoji-top {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 32px;
+}
+
+/* info rows */
+.info-row {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    text-align: left;
 }
 
-.parent-content {
-    flex: 1;
-}
-
-/* footer */
-.parent-footer {
-    text-align: center;
-    padding: 20px 0;
+.info-label {
+    font-size: 14px;
+    font-weight: 700;
     color: #2F4B8A;
-    opacity: 0.8;
-    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
-/* -------------------------
-   Responsive tweaks
---------------------------*/
-@media (max-width: 520px) {
-    .navbar-links { gap: 12px; padding: 12px 16px; }
-    .children-grid { grid-template-columns: 1fr; }
-    .parent-content { width: 94%; }
+.info-value {
+    font-size: 15px;
+    color: #2F4B8A;
+}
+/* ================================
+   INLINE TASK DETAILS FORMAT
+================================= */
+
+.task-info-set {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-/* === Hide native scrollbars but preserve scrolling === */
-html, body {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-}
-html::-webkit-scrollbar, body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-    width: 0;
-    height: 0;
+.info-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;         /* bigger text */
 }
 
-/* Backdrop for sidecard (covers page when sidecard is open) */
-.sidecard-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(20,30,60,0.12);
-    z-index: 998;
-    transition: opacity 0.24s ease;
-}
-.sidecard-backdrop.hidden {
-    display: none;
-    opacity: 0;
+.info-label {
+    font-weight: 700;
+    color: #2F4B8A;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation-duration: 0s !important; }
+.info-value {
+    color: #2F4B8A;
+    font-weight: 500;
 }
 
-/* End of child.css */
+/* ================================
+   Square Task Card (adjusted)
+================================= */
+
+.task-card-square {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    min-height: 260px;           /* bigger square */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+    position: relative;
+}
+
+/* emoji top right */
+.task-emoji-top {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 34px;   /* slightly bigger */
+}
+
+/* ================================
+   Bigger Pills (Active / Completed)
+================================= */
+
+.tasks-pill {
+    padding: 12px 26px;      /* bigger */
+    font-size: 17px;         /* bigger */
+    border-radius: 999px;
+}
+
+.tasks-pill-wrap {
+    margin-bottom: 45px;     /* more space from tasks */
+}
